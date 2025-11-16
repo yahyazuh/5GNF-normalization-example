@@ -1,0 +1,228 @@
+// Create Person nodes (core entity)
+CREATE 
+  (p1:Person {
+    name: "John",
+    surname: "Doe"
+  }),
+  
+  (p2:Person {
+    name: "Jane",
+    surname: "Smith"
+  });
+
+// Create Producer nodes (core entity)
+CREATE
+  (prod1:Producer {
+    name: "AutoCorp",
+    fullname: "Auto Corporation Ltd."
+  }),
+  
+  (prod2:Producer {
+    name: "CarMakers",
+    fullname: "Car Makers Inc."
+  }),
+  
+  (prod3:Producer {
+    name: "EcoDrive",
+    fullname: "Eco Drive Technologies"
+  }),
+  
+  (prod4:Producer {
+    name: "FutureMobility",
+    fullname: "Future Mobility Solutions"
+  });
+
+// Create Car nodes (core entity)
+CREATE
+  (car1:Car {
+    label: "Sedan",
+    model: "Model X"
+  }),
+  
+  (car2:Car {
+    label: "SUV",
+    model: "Explorer"
+  }),
+  
+  (car3:Car {
+    label: "Compact",
+    model: "E-100"
+  }),
+  
+  (car4:Car {
+    label: "Luxury",
+    model: "PowerElite"
+  });
+
+// Create TechTrait nodes (reusable traits)
+CREATE
+  (tech1:TechTrait {
+    engineType: "Combustion",
+    emissions: 150,
+    range: null
+  }),
+  
+  (tech2:TechTrait {
+    engineType: "Combustion",
+    emissions: 200,
+    range: null
+  }),
+  
+  (tech3:TechTrait {
+    engineType: "Electric",
+    emissions: null,
+    range: 350
+  }),
+  
+  (tech4:TechTrait {
+    engineType: "Electric",
+    emissions: null,
+    range: 500
+  });
+
+// Create TemporalTrait nodes (reusable traits)
+CREATE
+  (temp1:TemporalTrait {
+    type: "ManufactureDate",
+    date: date("2020-03-10")
+  }),
+  
+  (temp2:TemporalTrait {
+    type: "ManufactureDate",
+    date: date("2021-07-15")
+  }),
+  
+  (temp3:TemporalTrait {
+    type: "ManufactureDate",
+    date: date("2022-01-20")
+  }),
+  
+  (temp4:TemporalTrait {
+    type: "ManufactureDate",
+    date: date("2023-05-08")
+  }),
+  
+  (temp5:TemporalTrait {
+    type: "BirthDate",
+    date: date("1985-05-15")
+  }),
+  
+  (temp6:TemporalTrait {
+    type: "BirthDate",
+    date: date("1990-08-22")
+  });
+
+// Create LocationTrait nodes (reusable traits)
+CREATE
+  (loc1:LocationTrait {
+    country: "USA",
+    city: "New York",
+    street: "5th Avenue"
+  }),
+  
+  (loc2:LocationTrait {
+    country: "UK",
+    city: "London",
+    street: "Baker Street"
+  }),
+  
+  (loc3:LocationTrait {
+    country: "Germany",
+    city: "Berlin",
+    street: "Hauptstrasse"
+  }),
+  
+  (loc4:LocationTrait {
+    country: "Japan",
+    city: "Tokyo",
+    street: "Shibuya Street"
+  }),
+  
+  (loc5:LocationTrait {
+    country: "USA",
+    city: "San Francisco",
+    street: "Tech Avenue"
+  }),
+  
+  (loc6:LocationTrait {
+    country: "China",
+    city: "Shanghai",
+    street: "Innovation Road"
+  });
+
+// Create OWNS relationships
+MATCH (p1:Person {name: "John", surname: "Doe"})
+MATCH (car1:Car {model: "Model X"})
+MATCH (car3:Car {model: "E-100"})
+CREATE (p1)-[:OWNS]->(car1), (p1)-[:OWNS]->(car3);
+
+MATCH (p2:Person {name: "Jane", surname: "Smith"})
+MATCH (car2:Car {model: "Explorer"})
+MATCH (car4:Car {model: "PowerElite"})
+CREATE (p2)-[:OWNS]->(car2), (p2)-[:OWNS]->(car4);
+
+// Create PRODUCED_BY relationships
+MATCH (car1:Car {model: "Model X"})
+MATCH (prod1:Producer {name: "AutoCorp"})
+CREATE (car1)-[:PRODUCED_BY]->(prod1);
+
+MATCH (car2:Car {model: "Explorer"})
+MATCH (prod2:Producer {name: "CarMakers"})
+CREATE (car2)-[:PRODUCED_BY]->(prod2);
+
+MATCH (car3:Car {model: "E-100"})
+MATCH (prod3:Producer {name: "EcoDrive"})
+CREATE (car3)-[:PRODUCED_BY]->(prod3);
+
+MATCH (car4:Car {model: "PowerElite"})
+MATCH (prod4:Producer {name: "FutureMobility"})
+CREATE (car4)-[:PRODUCED_BY]->(prod4);
+
+// Create HAS_TRAIT relationships for Cars
+MATCH (car1:Car {model: "Model X"})
+MATCH (tech1:TechTrait {emissions: 150})
+MATCH (temp1:TemporalTrait {date: date("2020-03-10")})
+CREATE (car1)-[:HAS_TRAIT]->(tech1), (car1)-[:HAS_TRAIT]->(temp1);
+
+MATCH (car2:Car {model: "Explorer"})
+MATCH (tech2:TechTrait {emissions: 200})
+MATCH (temp2:TemporalTrait {date: date("2021-07-15")})
+CREATE (car2)-[:HAS_TRAIT]->(tech2), (car2)-[:HAS_TRAIT]->(temp2);
+
+MATCH (car3:Car {model: "E-100"})
+MATCH (tech3:TechTrait {range: 350})
+MATCH (temp3:TemporalTrait {date: date("2022-01-20")})
+CREATE (car3)-[:HAS_TRAIT]->(tech3), (car3)-[:HAS_TRAIT]->(temp3);
+
+MATCH (car4:Car {model: "PowerElite"})
+MATCH (tech4:TechTrait {range: 500})
+MATCH (temp4:TemporalTrait {date: date("2023-05-08")})
+CREATE (car4)-[:HAS_TRAIT]->(tech4), (car4)-[:HAS_TRAIT]->(temp4);
+
+// Create HAS_TRAIT relationships for Persons
+MATCH (p1:Person {name: "John", surname: "Doe"})
+MATCH (temp5:TemporalTrait {date: date("1985-05-15")})
+MATCH (loc1:LocationTrait {street: "5th Avenue"})
+CREATE (p1)-[:HAS_TRAIT]->(temp5), (p1)-[:HAS_TRAIT]->(loc1);
+
+MATCH (p2:Person {name: "Jane", surname: "Smith"})
+MATCH (temp6:TemporalTrait {date: date("1990-08-22")})
+MATCH (loc2:LocationTrait {street: "Baker Street"})
+CREATE (p2)-[:HAS_TRAIT]->(temp6), (p2)-[:HAS_TRAIT]->(loc2);
+
+// Create HAS_TRAIT relationships for Producers
+MATCH (prod1:Producer {name: "AutoCorp"})
+MATCH (loc3:LocationTrait {street: "Hauptstrasse"})
+CREATE (prod1)-[:HAS_TRAIT]->(loc3);
+
+MATCH (prod2:Producer {name: "CarMakers"})
+MATCH (loc4:LocationTrait {street: "Shibuya Street"})
+CREATE (prod2)-[:HAS_TRAIT]->(loc4);
+
+MATCH (prod3:Producer {name: "EcoDrive"})
+MATCH (loc5:LocationTrait {street: "Tech Avenue"})
+CREATE (prod3)-[:HAS_TRAIT]->(loc5);
+
+MATCH (prod4:Producer {name: "FutureMobility"})
+MATCH (loc6:LocationTrait {street: "Innovation Road"})
+CREATE (prod4)-[:HAS_TRAIT]->(loc6);

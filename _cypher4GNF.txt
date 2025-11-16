@@ -1,0 +1,196 @@
+// Create Person nodes
+CREATE 
+  (p1:Person {
+    name: "John",
+    surname: "Doe",
+    birthdate: date("1985-05-15")
+  }),
+  
+  (p2:Person {
+    name: "Jane",
+    surname: "Smith", 
+    birthdate: date("1990-08-22")
+  });
+
+// Create Address nodes
+CREATE
+  (addr1:Address {
+    country: "USA",
+    city: "New York",
+    street: "5th Avenue"
+  }),
+  
+  (addr2:Address {
+    country: "UK",
+    city: "London",
+    street: "Baker Street"
+  }),
+  
+  (addr3:Address {
+    country: "Germany", 
+    city: "Berlin",
+    street: "Hauptstrasse"
+  }),
+  
+  (addr4:Address {
+    country: "Japan",
+    city: "Tokyo",
+    street: "Shibuya Street"
+  }),
+  
+  (addr5:Address {
+    country: "USA",
+    city: "San Francisco",
+    street: "Tech Avenue"
+  }),
+  
+  (addr6:Address {
+    country: "China",
+    city: "Shanghai",
+    street: "Innovation Road"
+  });
+
+// Create Producer nodes
+CREATE
+  (prod1:Producer {
+    name: "AutoCorp",
+    fullname: "Auto Corporation Ltd."
+  }),
+  
+  (prod2:Producer {
+    name: "CarMakers",
+    fullname: "Car Makers Inc."
+  }),
+  
+  (prod3:Producer {
+    name: "EcoDrive",
+    fullname: "Eco Drive Technologies"
+  }),
+  
+  (prod4:Producer {
+    name: "FutureMobility",
+    fullname: "Future Mobility Solutions"
+  });
+
+// Create Car nodes with type as property (composition approach)
+CREATE
+  (car1:Car {
+    label: "Sedan",
+    model: "Model X",
+    made: date("2020-03-10"),
+    type: "Combustion"
+  }),
+  
+  (car2:Car {
+    label: "SUV",
+    model: "Explorer", 
+    made: date("2021-07-15"),
+    type: "Combustion"
+  }),
+  
+  (car3:Car {
+    label: "Compact",
+    model: "E-100",
+    made: date("2022-01-20"),
+    type: "Electric"
+  }),
+  
+  (car4:Car {
+    label: "Luxury",
+    model: "PowerElite",
+    made: date("2023-05-08"),
+    type: "Electric"
+  });
+
+// Create Engine Specification nodes (composition)
+CREATE
+  (spec1:EngineSpec {
+    emissions: 150,
+    engineType: "Combustion"
+  }),
+  
+  (spec2:EngineSpec {
+    emissions: 200,
+    engineType: "Combustion"
+  }),
+  
+  (spec3:EngineSpec {
+    range: 350,
+    engineType: "Electric"
+  }),
+  
+  (spec4:EngineSpec {
+    range: 500,
+    engineType: "Electric"
+  });
+
+// Create relationships: Person LIVES_AT Address
+MATCH (p1:Person {name: "John", surname: "Doe"})
+MATCH (addr1:Address {street: "5th Avenue"})
+CREATE (p1)-[:LIVES_AT]->(addr1);
+
+MATCH (p2:Person {name: "Jane", surname: "Smith"})
+MATCH (addr2:Address {street: "Baker Street"})
+CREATE (p2)-[:LIVES_AT]->(addr2);
+
+// Create relationships: Producer LOCATED_AT Address
+MATCH (prod1:Producer {name: "AutoCorp"})
+MATCH (addr3:Address {street: "Hauptstrasse"})
+CREATE (prod1)-[:LOCATED_AT]->(addr3);
+
+MATCH (prod2:Producer {name: "CarMakers"})
+MATCH (addr4:Address {street: "Shibuya Street"})
+CREATE (prod2)-[:LOCATED_AT]->(addr4);
+
+MATCH (prod3:Producer {name: "EcoDrive"})
+MATCH (addr5:Address {street: "Tech Avenue"})
+CREATE (prod3)-[:LOCATED_AT]->(addr5);
+
+MATCH (prod4:Producer {name: "FutureMobility"})
+MATCH (addr6:Address {street: "Innovation Road"})
+CREATE (prod4)-[:LOCATED_AT]->(addr6);
+
+// Create relationships: Car HAS_ENGINE EngineSpec (composition)
+MATCH (car1:Car {model: "Model X"})
+MATCH (spec1:EngineSpec {emissions: 150})
+CREATE (car1)-[:HAS_ENGINE]->(spec1);
+
+MATCH (car2:Car {model: "Explorer"})
+MATCH (spec2:EngineSpec {emissions: 200})
+CREATE (car2)-[:HAS_ENGINE]->(spec2);
+
+MATCH (car3:Car {model: "E-100"})
+MATCH (spec3:EngineSpec {range: 350})
+CREATE (car3)-[:HAS_ENGINE]->(spec3);
+
+MATCH (car4:Car {model: "PowerElite"})
+MATCH (spec4:EngineSpec {range: 500})
+CREATE (car4)-[:HAS_ENGINE]->(spec4);
+
+// Create relationships: Car PRODUCED_BY Producer
+MATCH (car1:Car {model: "Model X"})
+MATCH (prod1:Producer {name: "AutoCorp"})
+CREATE (car1)-[:PRODUCED_BY]->(prod1);
+
+MATCH (car2:Car {model: "Explorer"})
+MATCH (prod2:Producer {name: "CarMakers"})
+CREATE (car2)-[:PRODUCED_BY]->(prod2);
+
+MATCH (car3:Car {model: "E-100"})
+MATCH (prod3:Producer {name: "EcoDrive"})
+CREATE (car3)-[:PRODUCED_BY]->(prod3);
+
+MATCH (car4:Car {model: "PowerElite"})
+MATCH (prod4:Producer {name: "FutureMobility"})
+CREATE (car4)-[:PRODUCED_BY]->(prod4);
+
+// Create relationships: Person OWNS Car
+MATCH (p1:Person {name: "John", surname: "Doe"})
+MATCH (car1:Car {model: "Model X"})
+MATCH (car3:Car {model: "E-100"})
+CREATE (p1)-[:OWNS]->(car1), (p1)-[:OWNS]->(car3);
+
+MATCH (p2:Person {name: "Jane", surname: "Smith"}) 
+MATCH (car2:Car {model: "Explorer"})
+MATCH (car4:Car {model: "PowerElite"})
+CREATE (p2)-[:OWNS]->(car2), (p2)-[:OWNS]->(car4);
