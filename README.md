@@ -48,7 +48,7 @@ The schema diagram (`5gnf.png`) is available in `/graph/`.
 
 
 
- Part 2 — Experimental Evaluation (Section 6 of the Paper)
+ # Part 2 — Experimental Evaluation (Section 6 of the Paper)
 
 The folder `/dataset/cypher/` contains all scripts used to generate the large synthetic dataset used in Section 6.
 
@@ -62,6 +62,7 @@ create_projects.cypher
 create_relationships.cypher
 trait_extraction_5gnf.cypher
 experimental_queries.cypher
+
 
 These scripts reproduce the full experiment described in the paper:
 
@@ -80,12 +81,15 @@ These scripts reproduce the full experiment described in the paper:
 
 Run Neo4j 5.x with APOC enabled:
 
+```
 docker run --name neo4j-5gnf ^
--p 7474:7474 -p 7687:7687 ^
--v <YOUR_LOCAL_PATH>:/data ^
--e NEO4J_AUTH=neo4j/adminpass ^
--e NEO4J_PLUGINS='["apoc"]' ^
-neo4j:5.24
+  -p 7474:7474 -p 7687:7687 ^
+  -v <YOUR_LOCAL_PATH>:/data ^
+  -e NEO4J_AUTH=neo4j/adminpass ^
+  -e NEO4J_PLUGINS='["apoc"]' ^
+  neo4j:5.24
+```
+
 
 Then open:
 http://localhost:7474
