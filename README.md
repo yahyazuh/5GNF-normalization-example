@@ -13,9 +13,7 @@ The repository includes:
 
 This package is designed to be *fully reproducible* and follows the **VLDB Reproducibility Guidelines**.
 
----
-
-# 📘 Part 1 — Running Example (0GNF → 5GNF)
+# Part 1 — Running Example (0GNF → 5GNF)
 
 The folder `/cypher/` contains six Cypher scripts showing step-by-step normalization:
 
@@ -29,7 +27,7 @@ Files:
 | `4GNF.cypher` | Technical metadata decomposed                      |
 | `5GNF.cypher` | Trait extraction; final 5GNF schema                |
 
-## 🔧 How to Run the Example
+# How to Run the Example
 
 1. Install Neo4j Desktop or use the web browser version:  
    https://browser.neo4j.io
@@ -39,7 +37,7 @@ Files:
 3. Run the files **in order**:
 
 
-## 📊 Final Schema Includes:
+# Final Schema Includes:
 - `TemporalTrait`  
 - `LocationTrait`  
 - `TechTrait`  
@@ -48,13 +46,13 @@ Files:
 
 The schema diagram (`5gnf.png`) is available in `/graph/`.
 
----
 
-# 🧪 Part 2 — Experimental Evaluation (Section 6 of the Paper)
+
+ Part 2 — Experimental Evaluation (Section 6 of the Paper)
 
 The folder `/dataset/cypher/` contains all scripts used to generate the large synthetic dataset used in Section 6.
 
-### 📂 Dataset Generation Scripts
+# Dataset Generation Scripts
 
 metadata_pools.cypher
 create_persons.cypher
@@ -74,9 +72,9 @@ These scripts reproduce the full experiment described in the paper:
 - ~18,000 HAS_TRAIT edges  
 - Profiling queries before and after normalization  
 
----
 
-# 🚀 How to Run the Full Experiment
+
+#  How to Run the Full Experiment
 
 ## 1. Start Neo4j (Docker recommended)
 
@@ -96,7 +94,7 @@ Login:
 username: neo4j
 password: adminpass
 
----
+
 
 ## 2. Generate the Dataset
 
@@ -111,7 +109,6 @@ create_relationships.cypher
 
 This produces the raw (unnormalized) dataset.
 
----
 
 ## 3. Apply the 5GNF Trait Extraction
 
@@ -125,7 +122,7 @@ This script:
 - connects entities using `HAS_TRAIT`  
 - removes redundant attributes  
 
----
+
 
 ## 4. Run the Experimental Performance Queries
 
@@ -139,9 +136,9 @@ This includes:
 
 These reproduce the results shown in Section 6 of the manuscript.
 
----
 
-# 📈 Expected Results
+
+#  Expected Results
 
 The results should match Section 6 of the paper:
 
@@ -151,18 +148,18 @@ The results should match Section 6 of the paper:
 - **Query performance improved**
 - **Counts identical or similar to those reported**
 
----
 
-# 🔄 Reproducibility
+
+#  Reproducibility
 
 This repository follows the official **VLDB Reproducibility Guidelines**:  
 https://vldb.org/pvldb/reproducibility/
 
 All experiments can be reproduced by executing the included scripts in sequence.
 
----
 
-# 📩 Contact
+
+# Contact
 
 For questions, collaborations, or replication issues:
 
