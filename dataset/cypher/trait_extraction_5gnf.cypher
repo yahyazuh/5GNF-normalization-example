@@ -50,3 +50,8 @@ WHERE c.manufactureDate IS NOT NULL
 MERGE (t:Trait {type:'ManufactureDate', value:toString(c.manufactureDate)})
 CREATE (c)-[:HAS_TRAIT]->(t)
 REMOVE c.manufactureDate;
+
+// =============================================
+// Create index on trait value (NEEDED for performance)
+// =============================================
+CREATE INDEX trait_value_index FOR (t:Trait) ON (t.value);
