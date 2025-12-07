@@ -17,7 +17,7 @@ The code follows the **VLDB Reproducibility Guidelines** and is fully runnable u
 
 ---
 
-# 📦 Repository Structure
+#  Repository Structure
 
 ```
 
@@ -67,7 +67,7 @@ README.md
 
 ---
 
-# 🧩 1. Running Example (0GNF → 5GNF)
+#  1. Running Example (0GNF → 5GNF)
 
 The folder `/cypher/` contains a simple, pedagogical example demonstrating how a redundant property graph evolves through each normalization stage.
 
@@ -86,7 +86,7 @@ This example is used in the paper to illustrate the conceptual progression towar
 
 ---
 
-# 🗂️ 2. Real Dataset (Northwind)
+#  2. Real Dataset (Northwind)
 
 A real, widely used dataset (Northwind) was loaded into Neo4j using the scripts in:
 
@@ -118,7 +118,7 @@ This real dataset replaces the synthetic dataset used in the earlier version of 
 
 ---
 
-# 🔧 3. TraitExtraction5GNF – Normalization Procedure
+#  3. TraitExtraction5GNF – Normalization Procedure
 
 The full Cypher implementation of the 5GNF transformation is located in:
 
@@ -248,7 +248,7 @@ Feel free to cite or reuse the scripts in academic work.
 
 ---
 
-# 🙌 Acknowledgements
+#  Acknowledgements
 
 This work builds upon:
 
@@ -258,7 +258,7 @@ This work builds upon:
 
 ---
 
-# 📧 Contact
+#  Contact
 
 For questions about the scripts or the 5GNF framework, contact:
 
