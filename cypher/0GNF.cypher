@@ -1,4 +1,4 @@
-// Create Person nodes with embedded car data (unstructured format from Fig. 2)
+// Create Person nodes with embedded car data (unstructured format )
 CREATE 
   (p1:Person {
     // Personal information
