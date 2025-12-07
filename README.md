@@ -199,7 +199,7 @@ Even when performance does not improve, **schema clarity, metadata reuse, and co
 
 ---
 
-# 🧪 5. Reproducing the Experiments
+#  5. Reproducing the Experiments
 
 ### Step 1 — Load Northwind
 
