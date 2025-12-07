@@ -138,7 +138,7 @@ After execution, all redundant properties (city, country, region, engine types, 
 
 ---
 
-# 📊 4. Experimental Evaluation
+#  4. Experimental Evaluation
 
 Experiments were executed before and after applying 5GNF.
 
@@ -234,7 +234,7 @@ Results are provided in `/results/`.
 
 ---
 
-# 📘 6. Academic Use
+#  6. Academic Use
 
 This repository is referenced in the manuscript submitted to ENASE/VLDB-style venues.
 It provides:
